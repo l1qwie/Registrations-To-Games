@@ -1,0 +1,7 @@
+Redirect/fmtogram/types/data.go
+Redirect/apptype/data.go
+secretdata.py
+User_bot/secretdata.py
+Admin_bot/secretdata.py
+.venv
+pgdata

@@ -57,35 +57,26 @@ def CreateHtmlFileForUser(S: dict[str, str], id: int):
 
 def TypeOfSetting(S: dict[str, str], uid: int) -> tuple[int, str, object, bool, str, str]:
 
-    halt:bool = False #bool
-    result:subprocess.CompletedProcess[str]
-    img:str = ''
+    halt:bool = False
     text:str = '' 
     kbd:object = None
-    res:bool = FindUserRecords(uid)
     level:int = 1
     act:str = "user records"
-
-    text = S["what_set"]
-    if res:
+    text = S["what_set"] + "\n\n"
+    prmode = "HTML"
+    if FindUserRecords(uid):
         halt = True
-        CreateHtmlFileForUser(S, uid)
-        result = subprocess.run("User_bot\\wkhtmltoimage User_bot\\personalhtml.html User_bot\\PersonalSchedule.jpg", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        if result.returncode == 0:
-            print("Файлы созданы и данные в них записаны.")
-            img = 'User_bot\\PersonalSchedule.jpg'
+        data = CreateTableForUser(uid)
+        for row in data:
+            seats, payment, sport, date, time = row
+            time_str = forall.CreateTimeStr(time)
+            date_str = forall.CreateDateStr(date)
+            text += S["user_schedule"] % (S[sport], date_str, time_str, seats, S[payment]) + "\n\n"
             kbd = ChangeOrDel(S["set_lan"], S["my_games"], S["main_menu"])
-        else:
-            print('Произошла ошибка:')
-            print(result)
-            text = S["somthing_happend"]
-            kbd = forall.Options(S["first_option"], S["second_option"], S["third_option"], S["fourth_option"])
-            level = 3
-            act = "divarication"
-    elif res == False:
+    else:
         kbd = ChangeLang(S["set_lan"], S["main_menu"])
-    
-    return level, text, kbd, halt, img, act
+    print("text =", text)
+    return level, text, kbd, halt, prmode, act
 
 def ChooseDiractions(S: dict[str, str], phrase: str, uid: int, limit: int, launch_point: int, what_setting: str, user_lang: str) -> tuple[int, str, str, str, int, str, object, bool, str]:
 
@@ -124,9 +115,9 @@ def ChooseDiractions(S: dict[str, str], phrase: str, uid: int, limit: int, launc
         kbd = forall.Schedule(schedule, limit, launch_point, '', len(schedule_from_database))
         level = 2
     else:
-        level, text, kbd, _halt_, img, act = TypeOfSetting(S, uid)
+        level, text, kbd, _halt_, prmode, act = TypeOfSetting(S, uid)
 
-    return level, user_lang, act, what_setting, launch_point, text, kbd, halt, img
+    return level, user_lang, act, what_setting, launch_point, text, kbd, halt, prmode
 
 def SetActions(S: dict[str, str], phrase: str, what_setting: str, uid: int, limit: int, launch_point: int, user_lang: str, set_game_id: int, prmode: str) -> tuple[int, str, int, str, int, str, str, object, bool, str]:
 
@@ -326,7 +317,7 @@ def IntermediateAction(S: dict[str, str], phrase: str, game_id: int, uid: int, w
                 if phrase == "card":
                     text = S["payment_canged_card"]
                     kbd = forall.Papara(S["pay"], S["next"])
-                    img = 'qr.jpg'
+                    img = 'User_bot/qr.jpg'
                     level = 6
                 elif phrase == "cash":
                     text = S["payment_canged_cash"]

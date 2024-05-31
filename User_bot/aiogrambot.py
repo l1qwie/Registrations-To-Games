@@ -37,6 +37,7 @@ async def SendMediaGroup(file_ids:list[str], typeoffiles:list[str], from_user: t
     if len(file_ids) < 10 and len(file_ids) > 1:
         media_group = CreateMyMediaGroup(typeoffiles, file_ids)
         await bot.send_media_group(from_user.id, media=media_group)
+        reply = await bot.send_message(from_user.id, text=text, parse_mode=prmode, reply_markup=kbd)
     elif len(file_ids) == 1:
         if typeoffiles[0] == "photo":
             reply = await bot.send_photo(from_user.id, photo=file_ids[0], caption=text, parse_mode=prmode, reply_markup=kbd)

@@ -29,7 +29,6 @@ def CreateHtmlFileAllSchedule(S: dict[str, str]):
     gameaddress:str = ''
 
     data = CreateTable()
-    html_table = "<table>"
     html_table += "<tr><th>Вид спорта</th><th>Дата проведения</th><th>Время проведения</th><th>Свободные места</th><th>Адрес</th></tr>"    
 
     for row in data:
@@ -43,21 +42,13 @@ def CreateHtmlFileAllSchedule(S: dict[str, str]):
     HTML(html_table, "userhtml.html")
 
 def CreateAFile(S: dict[str, str]) -> tuple[str, object, str]:
-
-    res:subprocess.CompletedProcess[str]
-    img:str = ''
-    text:str = ''
-    kbd:object = None
-
-    CreateHtmlFileAllSchedule(S)
-    res = subprocess.run("wkhtmltoimage userhtml.html Schedule.jpg", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    if res.returncode == 0:
-        print("Файлы созданы и данные в них записаны.")
-        img = 'Schedule.jpg'
-        text = S["show_schedule"]
-        kbd = GoTo(S["main_menu"])
-    else:
-        print('Произошла ошибка:')
-        print(res.stderr)
-    
-    return text, kbd, img
+    text = S["show_schedule"]
+    kbd = GoTo(S["main_menu"])
+    prmode = "html"
+    data = CreateTable()
+    for row in data:
+        sport, date, time, seats, gameaddress = row
+        time_str = forall.CreateTimeStr(time)
+        date_str = forall.CreateDateStr(date)
+        text += (S["schedule"] + "\n\n") % (S[sport], date_str, time_str, seats) + "\n"
+    return text, kbd, prmode

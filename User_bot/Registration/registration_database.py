@@ -27,11 +27,12 @@ def SelectAllScheduleData(limit: int, launch_point: int) -> list[tuple[int, str,
         print(row)
         return row
 
-def SelectAllGId() -> list[str]:
+def SelectAllGId(game_id: str) -> list[bool]:
     with connection:
-        cursor.execute("SELECT game_id FROM Schedule WHERE (status != -1)")
-        game_ids = [row[0] for row in f"{cursor.fetchall()}"]
-        return game_ids
+        cursor.execute("SELECT COUNT(*) FROM Schedule WHERE status != -1 AND game_id = %s", (game_id,))
+        row = cursor.fetchone()
+        assert(row[0] is not None)
+        return row[0]
 
 def WhatAboutMoney(game_id: int) -> tuple[int, str]:
     row:Any = None

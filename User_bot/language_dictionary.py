@@ -1,9 +1,11 @@
 ru = {
      #show Schedule
      "show_schedule": "Вот расписние всех игр",
+     "schedule": "<b>Спорт:</b> %s, <b>Дата:</b> %s, <b>Время:</b> %s, <b>Свободные места:</b> %d",
+     "user_schedule": "<b>Спорт:</b> %s, <b>Дата:</b> %s, <b>Время:</b> %s, <b>Человек вместе с вами:</b> %d, <b>Способ оплаты:</b> %s",
      #/reset
      "reset_all": "Произошла перезагрузка ваших данны в боте",
-     #bot's answers when user in settings action                
+     #bot's answers when user in settings action         
      "sport_for_html": "Вид спорта",
      "date_for_html": "Дата проведения",
      "time_for_html": "Время проведения",
@@ -133,6 +135,8 @@ ru = {
 en = {
      #show Schedule
      "show_schedule": "Here is the schedule of all games",
+     "schedule": "<b>Sport:</b> %s, <b>Date:</b> %s, <b>Time:</b> %s, <b>Available spots:</b> %d",
+     "user_schedule": "<b>Sport:</b> %s, <b>Date:</b> %s, <b>Time:</b> %s, <b>People with you:</b> %d, <b>Payment method:</b> %s",
      #/reset
      "reset_all": "A reload of your data in the bot has occurred",
      #bot's answers when user in settings action
@@ -287,6 +291,8 @@ P.S. If anything, the bot has a magical command /menu. This command will always 
 tur = {
      #show Schedule
      "show_schedule": "İşte tüm oyunların programı",
+     "schedule": "<b>Spor:</b> %s, <b>Tarih:</b> %s, <b>Zaman:</b> %s, <b>Mevcut yerler:</b> %d",
+     "user_schedule": "<b>Spor:</b> %s, <b>Tarih:</b> %s, <b>Zaman:</b> %s, <b>Sizinle birlikte kişi:</b> %d, <b>Ödeme yöntemi:</b> %s",
      #/reset
      "reset_all": "Bot'taki verilerinizin yeniden yüklenmesi gerçekleşti",
      #bot's answers when user in settings action

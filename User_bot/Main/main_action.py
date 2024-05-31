@@ -325,9 +325,9 @@ def SeeUserRecords(u: User, phrase: str, name: str) -> tuple[str, object, bool, 
     setConnectTo(phiz_host, phiz_user, phiz_password, phiz_db_name)
 
     if u.level == START:
-        u.level, text, kbd, halt, img, u.act = TypeOfSetting(Strings[u.language], u.id)
+        u.level, text, kbd, halt, prmode, u.act = TypeOfSetting(Strings[u.language], u.id)
     elif u.level == LEVEL1:
-        u.level, u.language, u.act, u.us_set_what_set, u.us_set_lanuch_point, text, kbd, halt, img = ChooseDiractions(Strings[u.language], phrase, u.id, 7, u.us_set_lanuch_point, u.us_set_what_set, u.language)
+        u.level, u.language, u.act, u.us_set_what_set, u.us_set_lanuch_point, text, kbd, halt, prmode = ChooseDiractions(Strings[u.language], phrase, u.id, 7, u.us_set_lanuch_point, u.us_set_what_set, u.language)
     elif u.level == LEVEL2:
         u.level, u.act, u.us_set_lanuch_point, u.language, u.us_set_game_id, prmode, text, kbd, halt, img = SetActions(Strings[u.language], phrase, u.us_set_what_set, u.id, 7, u.us_set_lanuch_point, u.language, u.us_set_game_id, prmode)
     elif u.level == LEVEL3:
@@ -356,7 +356,7 @@ def FromHtmlToJpg(u: User, name: str) -> tuple[str, object, bool, str, list[floa
     showConnectTo(phiz_host, phiz_user, phiz_password, phiz_db_name)
 
     if u.level == START:
-        text, kbd, img = CreateAFile(Strings[u.language])
+        text, kbd, prmode = CreateAFile(Strings[u.language])
 
     return text, kbd, halt, prmode, address, img, files_id, typeoffile, edit
 

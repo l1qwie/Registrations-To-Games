@@ -28,6 +28,7 @@ def FindUserRecords(id: int) -> bool:
             assert(False)
         if counter != 0:
             result = True
+        print("result =", result)
         return result
 
 def CreateTableForUser(id: int) -> list[tuple[int, str, str, int, int]]:

@@ -67,7 +67,7 @@ def ChooseSeats(S: dict[str, str], phrase: str, game_id: int, limit: int, launch
     kbd:object = None
     level:int = -1 
 
-    if phrase in SelectAllGId():
+    if SelectAllGId(phrase):
         halt = True
         game_id = int(phrase)
         money, currency = WhatAboutMoney(game_id)
@@ -136,7 +136,7 @@ def CardPayment(S: dict[str, str], game_id: int, seats: int, uid: int, phrase: s
             price = money * seats
             text = S["online_oplata"] % (price, currency)
             kbd = forall.Papara(S["pay"], S["next"])
-            img = 'qr.jpg'
+            img = 'User_bot/qr.jpg'
             level = 4
         else:
             level, act, text, kbd, prmode, address = BestWishes(S, game_id, seats, uid, sport, payment)

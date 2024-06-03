@@ -27,6 +27,7 @@ services:
       - PYTHONPATH=/app
       - PYTHONUNBUFFERED=1
     command: ["python", "User_bot/aiogrambot.py"]
+
   admin-app:
     build:
       context: .
@@ -40,3 +41,11 @@ services:
       - PYTHONPATH=/app
       - PYTHONUNBUFFERED=1
     command: ["python", "Admin_bot/aiogramcontact.py"]
+
+  redir-app:
+    build: Redirect
+    ports:
+      - 8099:8029
+    depends_on:
+      - postgresql
+    command: ["/app/bin"]

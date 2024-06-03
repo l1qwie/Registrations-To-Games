@@ -1,5 +1,5 @@
 from Admin_bot.Activities.activities_keyboard import ActivitiesDirection, SendOrNo, LetsGO, RemoveFromGameOrCall
-from Admin_bot.Activities.activities_database import FindChats, SelectLengthChats, SelectActiveGames, SelectLengthOfActiveGames, FoundChatId, FindSomeGames, FoundGameId, SelectAllInfFromSchedule, SelectYourClients, UpdateInfAboutChat, SelectActiveGameId, SelectWaitingClients, SelectInfClient, RemoveClientFormGame
+from Admin_bot.Activities.activities_database import FindChats, SelectLengthChats, SelectActiveGames, SelectLengthOfActiveGames, FoundChatId, FindSomeGames, FoundGameId, SelectAllInfFromSchedule, SelectYourClients, UpdateInfAboutChat, SelectActiveGameId, SelectWaitingClients, SelectInfClient, RemoveClientFormGame, SelectActivityClients
 from Admin_bot.Game.game_database import LengthOfGames, ScheduleOfGames
 from Admin_bot.Clients.clients_database import SelectClient, SelectLengthOfClients
 from Admin_bot.Settings.settings_keyboard import Language
@@ -192,12 +192,12 @@ def InputSend(S: dict[str, str], phrase: str, language: str, game_id: int, halt:
         act = "divarication"
         UpdateInfAboutChat(chat_id, chat_lang)
         sport, date, time, seats, price, currency, lat, long, nameaddress = SelectAllInfFromSchedule(game_id)
-        users_from_db = SelectYourClients((int(phrase)))
+        users_from_db = SelectYourClients(game_id)
         for name, lastname in users_from_db:
             if name == "no_data":
-                name = language_dictionary_for_all.String[phrase][name]
+                name = language_dictionary_for_all.String[chat_lang][name]
             elif lastname == "no_data":
-                lastname = language_dictionary_for_all.String[phrase][lastname]
+                lastname = language_dictionary_for_all.String[chat_lang][lastname]
             users.append((name, lastname))
 
         text = S["chatgame_sended"] +  language_dictionary_for_all.String[language]["main_menu_text"]
@@ -219,7 +219,7 @@ def InputActiveGameId(S: dict[str, str], phrase: str, level: int, halt: bool, ga
             halt = True
             game_id = int(phrase)
             level = 3
-            names:list[tuple[int, str, str]] = SelectClient(7, clients_launch_point)
+            names:list[tuple[int, str, str]] = SelectActivityClients(game_id, 7, clients_launch_point)
             lengthofclients:int = SelectLengthOfClients(game_id)
             
             text = S["all_of_client_on_game"]

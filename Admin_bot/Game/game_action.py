@@ -248,8 +248,10 @@ def SaveOrChange(S: dict[str, str], NewS: dict[str, str], phrase: str, level: in
     
     return (level, direction, action, text, kbd, halt, change_create, prmode)
 
-def InputGameId(S:dict[str, str], text: str, kbd: object, language: str, sport: str, date: int, time: int, seats: int, price: int, currency: str, lat: float, long: float, address: str) -> tuple[str, object, str]:
-    text = S["game_inf"] % (sport, forall.CreateDateStr(date), forall.CreateTimeStr(time), seats, price, currency, lat, long, address) + S["choose_change"]
+def InputGameId(S: dict[str, str], text: str, kbd: object, language: str, sport: str, date: int, time: int, seats: int, price: int, currency: str, lat: float, long: float, address: str) -> tuple[str, object, str]:
+    lat_str = f"{lat:.6f}"
+    long_str = f"{long:.6f}"
+    text = S["game_inf"] % (sport, forall.CreateDateStr(date), forall.CreateTimeStr(time), seats, price, currency, lat_str, long_str, address) + S["choose_change"]
     kbd = OptionsOfChange(S["sport"], S["date"], S["time"], S["seats"], S["price"], S["currency"], S["link"], S["nameaddress"], language_dictionary_for_all.String[language]["main_menu_kb"])
     prmode = "HTML"
     return text, kbd, prmode
@@ -283,7 +285,7 @@ def InputKindOfChanging(S: dict[str, str], phrase: str, level: int, direction_of
     halt:bool = False
     prmode:str = ''
 
-    if phrase in ("sport", "date", "time", "seats", "price", "currency", "link", "nameaddress"):
+    if phrase in ("sport", "date", "time", "seats", "price", "currency", "link", "address"):
         halt = True
         level = 4
         if phrase == "sport":
@@ -302,7 +304,7 @@ def InputKindOfChanging(S: dict[str, str], phrase: str, level: int, direction_of
             text = S["writecurrency"]
         elif phrase == "link":
             text = S["writelink"]
-        elif phrase == "nameaddress":
+        elif phrase == "address":
             text = S["writeaddress"]
         direction_of_change = phrase
     else:
@@ -332,7 +334,7 @@ def PreparationData(S: dict[str, str], direction_of_change: str, phrase: str, sp
         halt = True
     elif direction_of_change == "link":
         changedata_float, changedata_float2, halt = InputLink(phrase, lat, long)
-    elif direction_of_change == "nameaddress":
+    elif direction_of_change == "address":
         changedata_str = phrase
         halt = True
     return changedata_int, changedata_str, changedata_float, changedata_float2, halt

@@ -31,7 +31,7 @@ ru = {
         "writeseats": "\n\n\nВведите количество свободных мест на эту игру",
         "writeprice": "\n\n\nВведите цену за одно место в формате цифры на эту игру",
         "writecurrency": "\n\n\nВведите имя валюты. Я не никак не контралирую то название, которое вы введете, так что советую вводить так, чтобы все понимали. Пример: USD EURO TL и тд",
-        "writelink": "\n\n\nПршлите ссылку с Google Maps с тем местом, где будет проходить игра. Очень важно, чтоб в ссылке были координаты. Если у вас не будет получатся коректная ссылка, то могу предложить скопировать пример ссылки и вписать на место пропусков координаты вручную. https://www.google.com/maps?q=<i>Тут место для широты</i>,<i>Тут место для долготы</i>",
+        "writelink": "\n\n\nПршлите ссылку с Google Maps с тем местом, где будет проходить игра. Очень важно, чтоб в ссылке были координаты. Если у вас не будет получатся коректная ссылка, то могу предложить скопировать пример ссылки и вписать на место пропусков координаты вручную. https://www.google.com/maps?q=(<i>Тут место для широты</i>),(<i>Тут место для долготы</i>)",
         "writeaddress": "\n\n\nВведите название адреса",
         "clarification": "Вы закончили заполнять информацию для создания новой игры. Сохраните эту игру, если все данные верны\n\n",
         "gamewassave": "Игра сохранена и теперь доступна вашим клиентам для регистрации\n\n",
@@ -68,7 +68,7 @@ ru = {
     #Create
         #Message
         "choose_fromwhere": "Выберите мессенджер вашего клиента",
-        "fromwhere": "<b>Способ связи:</b> %s",
+        "fromwhere": "<b>Способ связи:</b> %s\n",
         "fromwhere+name": "<b>Способ связи:</b> %s\n<b>Имя:</b> %s",
         "fromwhere+name+last_name": "<b>Способ связи:</b> %s\n<b>Имя:</b> %s\n<b>Фамилия:</b> %s",
         "fromwhere+name+last_name+phonenum": "<b>Способ связи:</b> %s\n<b>Имя:</b> %s\n<b>Фамилия:</b> %s\n<b>Номер телефона:</b> %s",
@@ -224,7 +224,7 @@ en = {
         "writeseats": "\n\n\nEnter the number of available seats for this game",
         "writeprice": "\n\n\nEnter the price for one seat in numeric format for this game",
         "writecurrency": "\n\n\nEnter the currency name. I have no control over the name you enter, so I advise entering it in a way that everyone understands. Example: USD, EURO, TL, etc",
-        "writelink": "\n\n\nSend a link from Google Maps with the location of the game. It is very important that the link contains coordinates. If you cannot generate a correct link, I can suggest copying the example link and manually entering the coordinates in the placeholders. https://www.google.com/maps?q=<i>Here goes latitude</i>,<i>Here goes longitude</i>",
+        "writelink": "\n\n\nSend a link from Google Maps with the location of the game. It is very important that the link contains coordinates. If you cannot generate a correct link, I can suggest copying the example link and manually entering the coordinates in the placeholders. https://www.google.com/maps?q=(<i>Here goes latitude</i>),(<i>Here goes longitude</i>)",
         "writeaddress": "\n\n\nEnter the name of the address",
         "clarification": "You have finished filling out the information for creating a new game. Save this game if all the data is correct\n\n<b>Sport type:</b> %s\n",
         "gamewassave": "The game has been saved and is now available for registration by your clients\n\n",
@@ -234,7 +234,7 @@ en = {
     #Change Or Delete
         #Message
         "choose_game": "Choose a game",
-        "game_inf": "<b>Date:</b> %s\n<b>Time:</b> %s\n<b>Total available seats:</b> %d\n<b>Price for one seat:</b> %d %s\n<b>Location link:</b> https://www.google.com/maps?q=%s,%s\n<b>Address name:</b> %s",
+        "game_inf": "<b>Sport:</b> %s\n<b>Date:</b> %s\n<b>Time:</b> %s\n<b>Total available seats:</b> %d\n<b>Price for one seat:</b> %d %s\n<b>Location link:</b> https://www.google.com/maps?q=%s,%s\n<b>Address name:</b> %s",
         "choose_change": "\n\nChoose what you want to modify",
         "data_changed": "The data has been modified. Do you want to change anything else?",
         "game_removed": "The game has been deleted. Do you want to do anything else?",
@@ -261,10 +261,10 @@ en = {
     #Create
         #Message
         "choose_fromwhere": "Choose your client's messenger",
-        "fromwhere": "Method of communication",
-        "fromwhere+name": "<b>Name:</b> %s",
-        "fromwhere+name+last_name": "<b>Name:</b> %s\n<b>Surname:</b> %s",
-        "fromwhere+name+last_name+phonenum": "<b>Name:</b> %s\n<b>Surname:</b> %s\n<b>Phone Number:</b> %s",
+        "fromwhere": "<b>Method of communication:</b> %s\n",
+        "fromwhere+name": "<b>Method of communication:</b> %s\n<b>Name:</b> %s\n",
+        "fromwhere+name+last_name": "<b>Method of communication:</b> %s\n<b>Name:</b> %s\n<b>Surname:</b> %s\n",
+        "fromwhere+name+last_name+phonenum": "<b>Method of communication:</b> %s\n<b>Name:</b> %s\n<b>Surname:</b> %s\n<b>Phone Number:</b> %s\n",
         "writename": "Write your client's name",
         "writelastname": "Write your client's last name",
         "writephonenum": "Write your client's phone number. Only digits and no intermediate symbols",
@@ -418,7 +418,7 @@ tur = {
         "writeseats": "\n\n\nBu oyun için mevcut koltuk sayısını girin",
         "writeprice": "\n\n\nBu oyun için bir koltuk için fiyatı sayısal formatta girin",
         "writecurrency": "\n\n\nPara birimi adını girin. Girdiğiniz isim üzerinde kontrolüm yok, bu yüzden herkesin anlayabileceği bir şekilde girmenizi öneririm. Örnek: USD, EURO, TL, vb",
-        "writelink": "\n\n\nOyunun gerçekleşeceği yerin Google Haritalar'dan bir bağlantısını gönderin. Bağlantının koordinatlar içermesi çok önemlidir. Eğer doğru bir bağlantı oluşturamazsanız, örnek bağlantıyı kopyalayıp yer tutuculara koordinatları el ile girmeyi önerebilirim. https://www.google.com/maps?q=<i>Buraya enlem</i>,<i>Buraya boylam</i>",
+        "writelink": "\n\n\nOyunun gerçekleşeceği yerin Google Haritalar'dan bir bağlantısını gönderin. Bağlantının koordinatlar içermesi çok önemlidir. Eğer doğru bir bağlantı oluşturamazsanız, örnek bağlantıyı kopyalayıp yer tutuculara koordinatları el ile girmeyi önerebilirim. https://www.google.com/maps?q=(<i>Buraya enlem</i>),(<i>Buraya boylam</i>)",
         "writeaddress": "\n\n\nAdresin adını girin",
         "clarification": "Yeni bir oyun oluşturmak için bilgileri doldurmayı tamamladınız. Eğer tüm veriler doğru ise, bu oyunu kaydedin\n\n",
         "gamewassave": "Oyun kaydedildi ve şimdi müşterileriniz tarafından kayıt için kullanılabilir\n\n",
@@ -455,10 +455,10 @@ tur = {
     #Create
         #Message
         "choose_fromwhere": "Müşterinizin mesajlaşma uygulamasını seçin",
-        "fromwhere": "İletişim yöntemi",
-        "fromwhere+name": "<b>İsim:</b> %s\n",
-        "fromwhere+name+last_name": "<b>İsim:</b> %s\n<b>Soyisim:</b> %s\n",
-        "fromwhere+name+last_name+phonenum": "<b>İsim:</b> %s\n<b>Soyisim:</b> %s\n<b>Telefon Numarası:</b> %s",
+        "fromwhere": "<b>İletişim yöntemi:</b> %s\n",
+        "fromwhere+name": "<b>İletişim yöntemi:</b> %s\n<b>İsim:</b> %s\n",
+        "fromwhere+name+last_name": "<b>İletişim yöntemi:</b> %s\n<b>İsim:</b> %s\n<b>Soyisim:</b> %s\n",
+        "fromwhere+name+last_name+phonenum": "<b>İletişim yöntemi:</b> %s\n<b>İsim:</b> %s\n<b>Soyisim:</b> %s\n<b>Telefon Numarası:</b> %s\n",
         "writename": "Müşterinizin adını yazın",
         "writelastname": "Müşterinizin soyadını yazın",
         "writephonenum": "Müşterinizin telefon numarasını yazın. Sadece rakamlar ve herhangi bir ara sembol olmadan",

@@ -46,12 +46,12 @@ def FindAdmin(id: int, language: str) -> bool:
 
 def RecallAdmin(user_id: int, name: str, last_name:str, language: str, action: str, direction: str,
                 game_launch_point: int, game_sport: str, game_date: int, game_time: int, game_seats: int, game_price: int, game_currency: str, game_latitude: float, game_longitude: float, game_nameaddress: str, game_change_direction: str, game_game_id: int, game_change_create: bool, game_typeofchange: str,
-                client_fromwhere: str, client_name: str, client_last_name: str, client_phonenum: int, client_user_id: int, client_change_option:str, client_launch_point: int, client_changeddata_str: str, client_changeddata_int: int, client_game_id: int, client_seats: int, client_paymethod: str,
+                client_fromwhere: str, client_name: str, client_last_name: str, client_phonenum: int, client_user_id: int, client_change_option:str, client_launch_point: int, client_changeddata_str: str, client_changeddata_int: int, client_game_id: int, client_seats: int, client_paymethod: str, client_changedata_str: str, client_changedata_int: int,
                 activities_actwithchats: str, activities_launch_point: int, activities_chat_id: int, activities_game_id: int, activities_chat_language: str,
                 finances_user_id: int,
                 level: int) -> tuple[int, str, str, str, str, str,
                                     int, str, int, int, int, int, str, float, float, str, str, int, bool, str,
-                                    str, str, str, int, int, str, int, str, int, int, int, str,
+                                    str, str, str, int, int, str, int, str, int, int, int, str, str, int,
                                     str, int, int, int, str,
                                     int,
                                     int]:
@@ -59,7 +59,7 @@ def RecallAdmin(user_id: int, name: str, last_name:str, language: str, action: s
     with connection:
         cursor.execute("""SELECT user_id, name, last_name, language, action, direction,
                     game_launch_point, game_sport, game_date, game_time, game_seats, game_price, game_currency, game_latitude, game_longitude, game_nameaddress, game_change_direction, game_game_id, game_change_create, game_typeofchange,
-                    client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod,
+                    client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod, client_changedata_str, client_changedata_int,
                     activities_actwithchats, activities_launch_point, activities_chat_id, activities_game_id, activities_chat_language,
                     finances_user_id,  
                     level 
@@ -68,7 +68,7 @@ def RecallAdmin(user_id: int, name: str, last_name:str, language: str, action: s
         if row is not None:
             (user_id, name, last_name, language, action, direction,
             game_launch_point, game_sport, game_date, game_time, game_seats, game_price, game_currency, game_latitude, game_longitude, game_nameaddress, game_change_direction, game_game_id, game_change_create, game_typeofchange,
-            client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod,
+            client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod, client_changedata_str, client_changedata_int,
             activities_actwithchats, activities_launch_point, activities_chat_id, activities_game_id, activities_chat_language,
             finances_user_id,
             level) = row
@@ -76,27 +76,27 @@ def RecallAdmin(user_id: int, name: str, last_name:str, language: str, action: s
             assert(False)
         return (user_id, name,  last_name, language, action, direction,
                 game_launch_point, game_sport, game_date, game_time, game_seats, game_price, game_currency, game_latitude, game_longitude, game_nameaddress, game_change_direction, game_game_id, game_change_create, game_typeofchange,
-                client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod,
+                client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod, client_changedata_str, client_changedata_int,
                 activities_actwithchats, activities_launch_point, activities_chat_id, activities_game_id, activities_chat_language,
                 finances_user_id, 
                 level)
 
 def RetainAdmin(id: int, name: str, last_name: str, language: str, action: str, direction: str,
                 game_launch_point: int, game_sport: str, game_date: int, game_time: int, game_seats: int, game_price: int, game_currency: str, game_latitude: float, game_longitude: float, game_nameaddress: str, game_change_direction: str, game_game_id: int, game_change_create: bool, game_typeofchange: str,
-                client_fromwhere: str, client_name: str, client_last_name: str, client_phonenum: int, client_user_id: int, client_change_option:str, client_launch_point: int, client_changeddata_str: str, client_changeddata_int: int, client_game_id: int, client_seats: int, client_paymethod: str,
+                client_fromwhere: str, client_name: str, client_last_name: str, client_phonenum: int, client_user_id: int, client_change_option:str, client_launch_point: int, client_changeddata_str: str, client_changeddata_int: int, client_game_id: int, client_seats: int, client_paymethod: str, client_changedata_str: str, client_changedata_int: int,
                 activities_actwithchats: str, activities_launch_point: int, activities_chat_id: int, activities_game_id: int, activities_chat_language: str,
                 finances_user_id: int,
                 level: int):
     with connection:
         cursor.execute("""UPDATE Admins SET user_id = %s, name = %s, last_name = %s, language = %s, action = %s, direction = %s,
                        game_launch_point = %s, game_sport = %s, game_date = %s, game_time = %s, game_seats = %s, game_price = %s, game_currency = %s, game_latitude = %s, game_longitude = %s, game_nameaddress = %s, game_change_direction = %s, game_game_id = %s, game_change_create = %s, game_typeofchange = %s,
-                       client_fromwhere = %s, client_name = %s, client_last_name = %s, client_phonenum = %s, client_user_id = %s, client_change_option = %s, client_launch_point = %s, client_changeddata_str = %s, client_changeddata_int = %s, client_game_id = %s, client_seats = %s, client_paymethod = %s, 
+                       client_fromwhere = %s, client_name = %s, client_last_name = %s, client_phonenum = %s, client_user_id = %s, client_change_option = %s, client_launch_point = %s, client_changeddata_str = %s, client_changeddata_int = %s, client_game_id = %s, client_seats = %s, client_paymethod = %s, client_changedata_str = %s, client_changedata_int = %s,
                        activities_actwithchats = %s, activities_launch_point = %s, activities_chat_id = %s, activities_game_id = %s, activities_chat_language = %s,
                        finances_user_id = %s,  
                        level = %s WHERE user_id = %s""", 
                         (id, name,  last_name, language, action, direction,
                         game_launch_point, game_sport, game_date, game_time, game_seats, game_price, game_currency, game_latitude, game_longitude, game_nameaddress, game_change_direction, game_game_id, game_change_create, game_typeofchange,
-                        client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod,
+                        client_fromwhere, client_name, client_last_name, client_phonenum, client_user_id, client_change_option, client_launch_point, client_changeddata_str, client_changeddata_int, client_game_id, client_seats, client_paymethod, client_changedata_str, client_changedata_int,
                         activities_actwithchats, activities_launch_point, activities_chat_id, activities_game_id, activities_chat_language,
                         finances_user_id,  
                         level, id))
@@ -176,10 +176,10 @@ def FindGameIds(game_id: int) -> bool:
     row:Any = None
     result:bool = False
     with connection:
-        cursor.execute("SELECT game_id FROM Schedule WHERE status != -1")
+        cursor.execute("SELECT COUNT(*) FROM Schedule WHERE game_id = %s AND status != -1", (game_id,))
         row = cursor.fetchone()
         if row is not None:
-            if game_id == row[0]:
+            if row[0] > 0:
                 result = True
         else:
             assert(False)
@@ -211,7 +211,7 @@ def SelectChatLang(chatid: int) -> tuple[str, int]:
             assert(False)
         return lang, exmess
     
-def UpdateExMessageId(message_id: int, user_id: int):
+def UpdateExMessageIdDB(message_id: int, user_id: int):
     with connection:
         cursor.execute("UPDATE Admins SET exmess = %s WHERE user_id = %s", (message_id, user_id,))
 
@@ -235,6 +235,6 @@ def ReupdateFinances(user_id: int):
     with connection:
         cursor.execute("UPDATE Admins SET finances_user_id = -1 WHERE user_id = %s", (user_id,))
 
-def UpdateExMessageFromChat(message_id: int, chat_id: int):
+def UpdateExMessageFromChatDB(message_id: int, chat_id: int):
     with connection:
         cursor.execute("UPDATE Chats SET message_id = %s WHERE chat_id = %s", (message_id, chat_id,))

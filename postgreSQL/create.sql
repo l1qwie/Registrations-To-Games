@@ -71,6 +71,8 @@ CREATE TABLE admins
     client_changeddata_str text COLLATE pg_catalog."default",
     client_changeddata_int bigint,
     client_launch_point integer DEFAULT 0,
+    client_changedata_str text,
+    client_changedata_int INTEGER,
     newchats boolean DEFAULT false,
     activities_actwithchats text COLLATE pg_catalog."default",
     activities_launch_point integer DEFAULT 0,

@@ -14,7 +14,7 @@ services:
     ports:
       - 5487:5432
 
-  app:
+  user-app:
     build:
       context: .
       dockerfile: User_bot/Dockerfile
@@ -27,3 +27,16 @@ services:
       - PYTHONPATH=/app
       - PYTHONUNBUFFERED=1
     command: ["python", "User_bot/aiogrambot.py"]
+  admin-app:
+    build:
+      context: .
+      dockerfile: Admin_bot/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8000"
+    environment:
+      - ENV_VAR_NAME=value
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    command: ["python", "Admin_bot/aiogramcontact.py"]

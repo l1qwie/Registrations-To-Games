@@ -118,9 +118,7 @@ def InputUserId(S: dict[str, str], phrase: str, user_id: int, level: int, direct
     return (level, clients_launch_point, user_id, text, kbd, halt, prmode)
 
 def Paid(S:dict[str, str], language: str, user_id: int, game_id: int) -> tuple[int, str, object, str]:
-
     dbPaid(user_id, game_id)
-    print("HALLO MOTHERFUCKERS!!!!", user_id, game_id)
     return (3, S["client_paided"] + language_dictionary_for_all.String[language]["main_menu_text"], forall.OptionsAdmin(S["first_option"], S["second_option"], S["third_option"], S["fourth_option"], S["fifth_option"]), "divarication")
 
 def InputPaided(S: dict[str, str], phrase: str, user_id: int, language: str, game_launch_point: int, act: str, halt: bool, level: int, prmode: str) -> tuple[int, str, str, object, bool, str]:

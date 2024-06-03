@@ -110,6 +110,7 @@ def SelectDataChanged(game_id: int, direction_of_change: str, typeofchange: str)
             cursor.execute(f"SELECT {direction_of_change} FROM Schedule WHERE game_id = %s", (game_id,))
             row = cursor.fetchone()
             if row is not None:
+                print(typeofchange)
                 if typeofchange == "str":
                     res_str = row[0]
                 elif typeofchange == "int":

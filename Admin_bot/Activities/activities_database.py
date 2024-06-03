@@ -19,6 +19,26 @@ def ConnectTo(host: str, user: str, password: str, db_name: str):
     cursor = connection.cursor()
 
 
+def SelectActivityClients(game_id: int, limit: int, launch_point: int) -> list[tuple[int, str, str]]:
+    row:Any = None
+    names: list[tuple[int, str, str]] = []
+    with connection:
+        cursor.execute("""
+                        SELECT 
+                            u.user_id,
+                            COALESCE(u.name, 'no_data') AS name,
+                            COALESCE(u.last_name, 'no_data') AS last_name
+                        FROM Users u
+                        JOIN WatingForGamesUsers w ON w.user_id = u.user_id
+                        WHERE w.game_id = %s AND u.status != -1
+                        ORDER BY u.name ASC, u.last_name DESC
+                        LIMIT %s 
+                        OFFSET %s""", (game_id, limit, launch_point))
+        row = cursor.fetchall()
+        if row is not None:
+            names = row
+    return names
+
 def FindChats(limit: int, launch_point: int) -> list[tuple[int, str]]:
     row:Any = None
     chatinf:list[tuple[int, str]] = []
@@ -147,7 +167,7 @@ def SelectInfClient(user_id: int) -> tuple[str, str, str, str, str, str]:
                         COALESCE (phone_number, -1),
                         COALESCE (from_where, 'no_data'), 
                         COALESCE (language, 'no_data') 
-                        FROM Users WHERE user_id = %s
+                        FROM Users WHERE user_id = %s AND status != -1
                         """, (user_id,))
         row = cursor.fetchone()
         if row is not None:
@@ -163,7 +183,6 @@ def SelectActiveGameId(game_id: int) -> bool:
     with connection:
         cursor.execute("SELECT COUNT(*) FROM WatingForGamesUsers WHERE game_id = %s", (game_id,))
         row = cursor.fetchone()
-        print("JUST CHECK",row)
         if row is not None:
             if row[0] != 0:
                 result = True
@@ -193,20 +212,17 @@ def UpdateInfAboutChat(chat_id: int, chat_lang: str):
         cursor.execute("UPDATE Chats SET language_of_message = %s WHERE chat_id = %s", (chat_lang, chat_id,))
 
 def SelectYourClients(game_id: int) -> list[tuple[str, str]]:
-    row:Any = None
-    users:list[tuple[str, str]] = []
+    users: list[tuple[str, str]] = []
     with connection:
         cursor.execute("""SELECT 
-                       COALESCE (name, 'no_data') AS name, 
-                       COALESCE (last_name, 'no_data') AS last_name
-                       FROM Users
-                       JOIN WatingForGamesUsers ON WatingForGamesUsers.game_id = %s""", (game_id,))
-        row = cursor.fetchall()
-        if row is not None:
-            users = row
-        else:
-            assert(False)
+                           COALESCE (Users.name, 'no_data') AS name, 
+                           COALESCE (Users.last_name, 'no_data') AS last_name
+                           FROM Users
+                           JOIN WatingForGamesUsers ON WatingForGamesUsers.user_id = Users.user_id
+                           WHERE WatingForGamesUsers.game_id = %s""", (game_id,))
+        users = cursor.fetchall()
         return users
+
     
 def FindSomeGames() -> bool:
     row:Any = None

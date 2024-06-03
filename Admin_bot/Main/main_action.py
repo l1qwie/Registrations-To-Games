@@ -1,4 +1,4 @@
-from Admin_bot.Main.main_database import FindAdmin, RecallAdmin, SelectDataFromSchedule, Reupdate, ReupdateGames, ReupdateClients, ReupdateActivities, ReupdateFinances, ChatsInfo, FindChats, AddNewChat, FindGameIds, RegistrtionClientToGame, SelectChatLang, InfUpdate
+from Admin_bot.Main.main_database import FindAdmin, RecallAdmin, SelectDataFromSchedule, Reupdate, ReupdateGames, ReupdateClients, ReupdateActivities, ReupdateFinances, ChatsInfo, FindChats, AddNewChat, FindGameIds, RegistrtionClientToGame, SelectChatLang, InfUpdate, UpdateExMessageIdDB, UpdateExMessageFromChatDB
 from Admin_bot.Main.main_database import ConnectTo as mainConnectTo
 #from Admin_bot.Main.main_database import FindNamedb
 from Admin_bot.Main.main_database import RetainAdmin as databaseRetainAdmin
@@ -79,6 +79,8 @@ class Admin:
         game_id:int = -1
         seats:int = -1
         paymethod:str = ''
+        changedata_str:str = ''
+        changedata_int:int = -1
 
     class Activities:
         actwithchats:str = ''
@@ -103,12 +105,12 @@ def RetrieveAdmin(id: int, ad_lang: str) -> Admin:
     if FindAdmin(id, ad_lang):
         (a.id, a.name, a.last_name, a.language, a.act, a.direction,
         a.Game.launch_point, a.Game.sport, a.Game.date, a.Game.time, a.Game.seats, a.Game.price, a.Game.currency, a.Game.latitude, a.Game.longitude, a.Game.nameaddress, a.Game.change_direction, a.Game.game_id, a.Game.change_create, a.Game.typeofchange,
-        a.Clients.fromwhere, a.Clients.name, a.Clients.last_name, a.Clients.phonenum, a.Clients.user_id, a.Clients.change_option, a.Clients.launch_point, a.Clients.changeddata_str, a.Clients.changeddata_int, a.Clients.game_id, a.Clients.seats, a.Clients.paymethod,
+        a.Clients.fromwhere, a.Clients.name, a.Clients.last_name, a.Clients.phonenum, a.Clients.user_id, a.Clients.change_option, a.Clients.launch_point, a.Clients.changeddata_str, a.Clients.changeddata_int, a.Clients.game_id, a.Clients.seats, a.Clients.paymethod, a.Clients.changedata_str, a.Clients.changedata_int,
         a.Activities.actwithchats, a.Activities.launch_point, a.Activities.chat_id, a.Activities.game_id, a.Activities.chat_language,
         a.Finances.user_id,
         a.level) = RecallAdmin(a.id, a.name, a.last_name, a.language, a.act, a.direction,
                                             a.Game.launch_point, a.Game.sport, a.Game.date, a.Game.time, a.Game.seats, a.Game.price, a.Game.currency, a.Game.latitude, a.Game.longitude, a.Game.nameaddress, a.Game.change_direction, a.Game.game_id, a.Game.change_create, a.Game.typeofchange,
-                                            a.Clients.fromwhere, a.Clients.name, a.Clients.last_name, a.Clients.phonenum, a.Clients.user_id, a.Clients.change_option, a.Clients.launch_point, a.Clients.changeddata_str, a.Clients.changeddata_int, a.Clients.game_id, a.Clients.seats, a.Clients.paymethod,
+                                            a.Clients.fromwhere, a.Clients.name, a.Clients.last_name, a.Clients.phonenum, a.Clients.user_id, a.Clients.change_option, a.Clients.launch_point, a.Clients.changeddata_str, a.Clients.changeddata_int, a.Clients.game_id, a.Clients.seats, a.Clients.paymethod, a.Clients.changedata_str, a.Clients.changedata_int,
                                             a.Activities.actwithchats, a.Activities.launch_point, a.Activities.chat_id, a.Activities.game_id, a.Activities.chat_language,
                                             a.Finances.user_id,
                                             a.level)
@@ -122,7 +124,7 @@ def RetrieveAdmin(id: int, ad_lang: str) -> Admin:
 def RetainAdmin(a: Admin):
     databaseRetainAdmin(a.id, a.name, a.last_name, a.language, a.act, a.direction,
     a.Game.launch_point, a.Game.sport, a.Game.date, a.Game.time, a.Game.seats, a.Game.price, a.Game.currency, a.Game.latitude, a.Game.longitude, a.Game.nameaddress, a.Game.change_direction, a.Game.game_id, a.Game.change_create, a.Game.typeofchange,
-    a.Clients.fromwhere, a.Clients.name, a.Clients.last_name, a.Clients.phonenum, a.Clients.user_id, a.Clients.change_option, a.Clients.launch_point, a.Clients.changeddata_str, a.Clients.changeddata_int, a.Clients.game_id, a.Clients.seats, a.Clients.paymethod,
+    a.Clients.fromwhere, a.Clients.name, a.Clients.last_name, a.Clients.phonenum, a.Clients.user_id, a.Clients.change_option, a.Clients.launch_point, a.Clients.changeddata_str, a.Clients.changeddata_int, a.Clients.game_id, a.Clients.seats, a.Clients.paymethod, a.Clients.changedata_str, a.Clients.changedata_int,
     a.Activities.actwithchats, a.Activities.launch_point, a.Activities.chat_id, a.Activities.game_id, a.Activities.chat_language,
     a.Finances.user_id,
     a.level)
@@ -407,6 +409,7 @@ def DispatchGroups(chatid: int, id: int, phrase: str, chatname: str) -> tuple[st
             chatlang, exmess = SelectChatLang(chatid)
             sport, date, time, seats, price, currency, lat, long, nameaddress = SelectAllInfFromSchedule(int(phrase))
             users_from_db = SelectYourClients((int(phrase)))
+            print(users_from_db)
             for name, lastname in users_from_db:
                 if name == "no_data":
                     name = language_dictionary_for_all.String[chatlang]["no_data"]
@@ -420,10 +423,10 @@ def DispatchGroups(chatid: int, id: int, phrase: str, chatname: str) -> tuple[st
 
 
 def UpdateExMessageId(message_id: int, id: int):
-    UpdateExMessageId(message_id, id)
+    UpdateExMessageIdDB(message_id, id)
 
 def UpdateExMessageFromChat(message_id: int, chat_id: int):
-    UpdateExMessageFromChat(message_id, chat_id)
+    UpdateExMessageFromChatDB(message_id, chat_id)
 
 def EvPrevMsgId(admin_id: int, name: str, last_name: str, username: str, language: str) -> int:
     exmess:int = InfUpdate(admin_id, name, last_name, username, language)

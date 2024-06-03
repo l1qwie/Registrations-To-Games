@@ -177,6 +177,8 @@ def InputNewData(S: dict[str, str], phrase: str, user_id: int, changeoption: str
             ChangeColumnUserInt(user_id, changeddata_int)
             text = S["user_inf"] % (SelectAllInf(user_id)) + S["inf_saved"] + S["data_changed"]
             kbd = forall.AnotherChange(S["yes"], S["no"])
+            prmode = "HTML"
+            level = 5
         else:
             (level, _changeoption_, prmode, text, kbd, _halt_) = InputChangeOption(S, changeoption, _user_id_, changeoption, language, level, _halt_)
     elif changeoption == "from_where":
@@ -186,6 +188,8 @@ def InputNewData(S: dict[str, str], phrase: str, user_id: int, changeoption: str
             ChangeColumnUserStr(user_id, changeoption, changeddata_str)
             text = S["user_inf"] % (SelectAllInf(user_id)) + S["inf_saved"] + S["data_changed"]
             kbd = forall.AnotherChange(S["yes"], S["no"])
+            prmode = "HTML"
+            level = 5
         else:
             (level, _changeoption_, prmode, text, kbd, _halt_) = InputChangeOption(S, changeoption, _user_id_, changeoption, language, level, _halt_)
     elif changeoption in ("name", "last_name"):
@@ -193,6 +197,8 @@ def InputNewData(S: dict[str, str], phrase: str, user_id: int, changeoption: str
         ChangeColumnUserStr(user_id, changeoption, changeddata_str)
         text = S["user_inf"] % (SelectAllInf(user_id)) + S["inf_saved"] + S["data_changed"]
         kbd = forall.AnotherChange(S["yes"], S["no"])
+        prmode = "HTML"
+        level = 5
     else:
         assert(False)
     

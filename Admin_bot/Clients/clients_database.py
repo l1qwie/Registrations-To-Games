@@ -28,7 +28,8 @@ def SelectClient(limit: int, launch_point: int) -> list[tuple[int, str, str]]:
                         COALESCE (name, 'no_data') AS name,
                         COALESCE (last_name, 'no_data') AS last_name
                         FROM 
-                        Users 
+                        Users
+                        WHERE status != -1
                         ORDER BY 
                         name, last_name DESC 
                         LIMIT {limit} 
@@ -54,7 +55,7 @@ def SelectAllOfUserId(user_id: int) -> bool:
     row:Any
     result:bool = False
     with connection:
-        cursor.execute("SELECT user_id FROM Users")
+        cursor.execute("SELECT user_id FROM Users WHERE status != -1")
         row = cursor.fetchall()
         if row is not None:
             row = [item[0] for item in row]
@@ -79,7 +80,7 @@ def SelectAllInf(id: int) -> tuple[str, str, int, str, str]:
                         COALESCE (from_where, 'no_data') AS last_name,
                         COALESCE (language, 'no_data') AS last_name,
                         COALESCE(CAST(phone_number AS text), 'no_data') AS last_name
-                        FROM Users WHERE user_id = %s""", (id,))
+                        FROM Users WHERE user_id = %s and status != -1""", (id,))
         row = cursor.fetchone()
         if row is not None:
             name, last_name, fromwhere, language, phonenum = row
@@ -98,13 +99,13 @@ def ChangeColumnUserStr(id: int, column: str, data: str):
 
 def RemoveClient(id: int):
     with connection:
-        cursor.execute("UPDATE Users SET status = %s WHERE user_id = %s", (-1, id,))
+        cursor.execute("UPDATE Users SET status = -1 WHERE user_id = %s", (id,))
 
 def SelectLengthOfClients(game_id: int) -> int:
     row:Any = None
     length:int = -1
     with connection:
-        cursor.execute("SELECT COUNT(user_id) FROM WatingForGamesUsers WHERE game_id = %s", (game_id,))
+        cursor.execute("SELECT COUNT(user_id) FROM WatingForGamesUsers WHERE game_id = %s and status != -1", (game_id,))
         row = cursor.fetchone()
         if row is not None:
             length = row[0]

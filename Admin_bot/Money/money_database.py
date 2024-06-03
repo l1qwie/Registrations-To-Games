@@ -41,7 +41,7 @@ def SelectClient(limit: int, launch_point: int) -> list[tuple[int, str, str]]:
                         COALESCE (last_name, 'no_data') AS last_name
                         FROM Users
                         JOIN WatingForGamesUsers ON Users.user_id = WatingForGamesUsers.user_id
-                        WHERE WatingForGamesUsers.status != -1 AND Users.status != -1
+                        WHERE WatingForGamesUsers.status != -1 AND Users.status != -1 AND WatingForGamesUsers.status_payment != 1
                         ORDER BY 
                         name, last_name DESC 
                         LIMIT {limit} 

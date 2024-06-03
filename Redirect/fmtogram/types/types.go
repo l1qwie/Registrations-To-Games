@@ -79,6 +79,12 @@ type TelegramResponse struct {
 	AppErr *chan error
 }
 
+type BadResponse struct {
+	Ok          bool   `json:"ok"`
+	ErrorCode   int    `json:"error_code"`
+	Description string `json:"description"`
+}
+
 type JustForUpdate struct {
 	Ok     bool            `json:"ok"`
 	Result []StorageOfJson `json:"result"`

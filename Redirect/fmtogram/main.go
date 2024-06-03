@@ -22,6 +22,7 @@ func pollResponse(output chan *formatter.Formatter, reg *executer.RegTable) {
 	err = executer.RequestOffset(types.TelebotToken, &offset)
 	for err != nil {
 		err = executer.RequestOffset(types.TelebotToken, &offset)
+		time.Sleep(time.Second / 10)
 	}
 	for {
 		log.Print("The cycle started")
@@ -45,9 +46,9 @@ func pollResponse(output chan *formatter.Formatter, reg *executer.RegTable) {
 			offset = offset + 1
 			log.Print("The cycle ended")
 		} else if err != nil {
-			panic(err)
+			log.Print(err)
 		}
-		time.Sleep(time.Second / 20)
+		time.Sleep(time.Second / 10)
 	}
 }
 
@@ -67,7 +68,7 @@ func pushRequest(requests <-chan *formatter.Formatter, reg *executer.RegTable) {
 	for r := range requests {
 		mes, err := r.Make()
 		if err != nil {
-			panic(err)
+			log.Print(err)
 		}
 		if mes.Ok {
 			index := reg.Seeker(mes.Result.Chat.Id)

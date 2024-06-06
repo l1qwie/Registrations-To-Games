@@ -319,6 +319,11 @@ def OptionsOfAdmin(a: Admin, phrase: str, name: str) -> tuple[str, str, object, 
     elif phrase == "Settings":
         a.act = 'settings'
         (text, kbd, halt) = Settings(a, phrase, name)
+    else:
+        text = language_dictionary_for_all.String[a.language]["main_menu_text"]
+        kbd = forall.OptionsAdmin(String[a.language]["first_option"], String[a.language]["second_option"], String[a.language]["third_option"], String[a.language]["fourth_option"], String[a.language]["fifth_option"])
+        a.act = "divarication"
+        a.level = OPTIONS
 
     return (text, chattext, kbd, chatkbd, prmode, halt, findchats, chatid)
         

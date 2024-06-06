@@ -1,3 +1,7 @@
+networks:
+  regtogames-net:
+
+
 services:
   postgresql:
     restart: always
@@ -13,6 +17,8 @@ services:
       - ./postgreSQL/set.sql:/docker-entrypoint-initdb.d/set.sql
     ports:
       - 5487:5432
+    networks:
+      - regtogames-net
 
   user-app:
     build:
@@ -22,6 +28,8 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    networks:
+      - regtogames-net
     environment:
       - ENV_VAR_NAME=value
       - PYTHONPATH=/app
@@ -34,6 +42,8 @@ services:
       dockerfile: Admin_bot/Dockerfile
     volumes:
       - .:/app
+    networks:
+      - regtogames-net
     ports:
       - "8001:8000"
     environment:
@@ -48,4 +58,6 @@ services:
       - 8099:8029
     depends_on:
       - postgresql
+    networks:
+      - regtogames-net
     command: ["/app/bin"]

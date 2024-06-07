@@ -6,7 +6,6 @@ import (
 	"Redirect/fmtogram/formatter"
 	"Redirect/fmtogram/helper"
 	"Redirect/fmtogram/types"
-	"fmt"
 	"log"
 	"time"
 )
@@ -25,10 +24,12 @@ func pollResponse(output chan *formatter.Formatter, reg *executer.RegTable) {
 		err = executer.RequestOffset(types.TelebotToken, &offset)
 		time.Sleep(time.Second / 10)
 	}
+	log.Print("The bot has found the first request from Telegram")
 	for {
 		telegramResponse = new(types.TelegramResponse)
 		err = executer.Updates(&offset, telegramResponse)
 		if len(telegramResponse.Result) != 0 && err == nil {
+			log.Print("The bots has found some information about user without any misstakes")
 			chatID = helper.ReturnChatId(telegramResponse)
 			index = reg.Seeker(chatID)
 			if index != executer.None {
@@ -41,7 +42,7 @@ func pollResponse(output chan *formatter.Formatter, reg *executer.RegTable) {
 			}
 			go worker(reg.Reg[index].Chu, output)
 			offset = offset + 1
-		} else if err != nil && fmt.Sprint(err) != "" {
+		} else if err != nil {
 			log.Print("ERR FROM Updates():", err)
 		}
 		time.Sleep(time.Second / 10)
@@ -75,15 +76,11 @@ func pushRequest(requests <-chan *formatter.Formatter, reg *executer.RegTable) {
 }
 
 func Start() {
-	var (
-		requests chan *formatter.Formatter
-		reg      *executer.RegTable
-	)
-	requests = make(chan *formatter.Formatter)
-	reg = new(executer.RegTable)
+	log.Print("The bot has been turned on")
+	requests := make(chan *formatter.Formatter)
+	reg := new(executer.RegTable)
 	go pollResponse(requests, reg)
 	go pushRequest(requests, reg)
-
 	for {
 		time.Sleep(time.Second)
 	}

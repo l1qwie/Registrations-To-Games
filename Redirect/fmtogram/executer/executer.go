@@ -112,7 +112,7 @@ func firstMisstake(response []byte) (string, bool) {
 		if dresp != nil {
 			if !dresp.Ok {
 				mes = fmt.Sprintf("Telegram вернул ошибку: %s", dresp.Description)
-				monitor = false
+				monitor = true
 			}
 		}
 	} else {
@@ -140,12 +140,15 @@ func handlerTelegramResponse(response []byte, telegramResponse *types.TelegramRe
 	var (
 		monitor bool
 		descrip string
+		err     error
 	)
 	descrip, monitor = firstMisstake(response)
-	if monitor {
+	if !monitor {
 		descrip = secondMisstake(response, telegramResponse)
 	}
-	err := fmt.Errorf(descrip)
+	if descrip != "" {
+		err = fmt.Errorf(descrip)
+	}
 	return err
 }
 

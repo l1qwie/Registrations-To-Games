@@ -6,6 +6,7 @@ import (
 	"Redirect/fmtogram/formatter"
 	"Redirect/fmtogram/helper"
 	"Redirect/fmtogram/types"
+	"fmt"
 	"log"
 	"time"
 )
@@ -40,7 +41,7 @@ func pollResponse(output chan *formatter.Formatter, reg *executer.RegTable) {
 			}
 			go worker(reg.Reg[index].Chu, output)
 			offset = offset + 1
-		} else if err != nil {
+		} else if err != nil && fmt.Sprint(err) != "" {
 			log.Print("ERR FROM Updates():", err)
 		}
 		time.Sleep(time.Second / 10)

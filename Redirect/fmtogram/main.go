@@ -41,7 +41,7 @@ func pollResponse(output chan *formatter.Formatter, reg *executer.RegTable) {
 			go worker(reg.Reg[index].Chu, output)
 			offset = offset + 1
 		} else if err != nil {
-			log.Print(err)
+			log.Print("ERR FROM Updates():", err)
 		}
 		time.Sleep(time.Second / 10)
 	}
